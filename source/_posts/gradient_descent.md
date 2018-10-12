@@ -1,8 +1,11 @@
----
 title: 梯度下降（Gradient Descent）
 mathjax: true
-tags: [机器学习, 算法]
-categories: 机器学习
+tags:
+  - 机器学习
+  - 算法
+categories:
+  - 机器学习
+date: 2018-10-11 00:25:00
 ---
 在求解机器学习算法的模型参数，即无约束优化问题时，梯度下降（Gradient Descent）是最常采用的方法之一，另一种常用的方法是最小二乘法。
 
