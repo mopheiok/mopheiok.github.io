@@ -118,7 +118,7 @@ index_with_subtitle: false
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, question icon will be loaded.
 menu:
   home: / || home
-  #about: /about/ || user
+  about: /about/ || user
   tags: /tags/ || tags
   categories: /categories/ || th
   archives: /archives/ || archive
@@ -668,7 +668,7 @@ busuanzi_count:
 
 
 # Enable baidu push so that the blog will push the url to baidu automatically which is very helpful for SEO
-baidu_push: false
+baidu_push: true
 
 # Google Calendar
 # Share your recent schedule to others via calendar page
@@ -702,7 +702,7 @@ algolia_search:
 # Local search
 # Dependencies: https://github.com/theme-next/hexo-generator-searchdb
 local_search:
-  enable: false
+  enable: true
   # if auto, trigger search by changing input
   # if manual, trigger search by pressing enter key or search button
   trigger: auto
@@ -759,7 +759,7 @@ tabs:
 # Reading progress bar
 # Dependencies: https://github.com/theme-next/theme-next-reading-progress
 reading_progress:
-  enable: false
+  enable: true
   color: "#37c6c0"
   height: 2px
 
