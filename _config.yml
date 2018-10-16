@@ -13,9 +13,11 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+# url: http://yoursite.com
+url: https://mopheiok.github.io
 root: /
-permalink: :year/:month/:day/:title/
+# permalink: :year/:month/:day/:title/
+permalink: :category/:title/
 permalink_defaults:
 
 # Directory
@@ -56,6 +58,10 @@ index_generator:
 # Category & Tag
 default_category: uncategorized
 category_map:
+  Spark: spark
+  机器学习: machinelearning
+  算法: algorithm
+  Data Science: datascience
 tag_map:
 
 # Date / Time format
@@ -75,10 +81,19 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 theme: next
 
+baidu_url_submit:
+  count: 10 ## 提交最新的一个链接
+  host: mopheiok.github.io
+  token: 1vqRZCYXX25sUPFK
+  path: baidu_urls.txt
+
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git
-  repository: git@github.com:MopheiOK/MopheiOK.github.io.git
-  branch: master
+- type: baidu_url_submitter
+- type: git 
+  repository: 
+        github: git@github.com:MopheiOK/MopheiOK.github.io.git,master
+        coding: git@git.coding.net:mophei/mophei.git,master
+  #  branch: master
 
