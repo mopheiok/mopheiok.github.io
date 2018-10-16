@@ -45,8 +45,8 @@ cache:
 # For example, you put your favicons into `hexo-site/source/images` directory.
 # Then need to rename & redefine they on any other names, otherwise icons from Next will rewrite your custom icons in Hexo.
 favicon:
-  small: /images/panda_reader_16px_easyicon.net.png
-  medium: /images/panda_reader_32px_easyicon.net.png
+  small: /images/m.png
+  medium: /images/m.png
   apple_touch_icon: /images/apple-touch-icon-next.png
   safari_pinned_tab: /images/logo.svg
   #android_manifest: /images/manifest.json
@@ -194,7 +194,7 @@ avatar:
   # in theme directory(source/images): /images/avatar.gif
   # in site  directory(source/uploads): /uploads/avatar.gif
   # You can also use other linking images.
-  url: /images/avatar.ico
+  url: /images/fox.png
   # If true, the avatar would be dispalyed in circle.
   rounded: true
   # The value of opacity should be choose from 0 to 1 to set the opacity of the avatar.
@@ -580,7 +580,8 @@ needmoreshare2:
 
 # Baidu Webmaster tools verification setting
 # See: https://ziyuan.baidu.com/site/
-#baidu_site_verification:
+# baidu_site_verification: ZaZEiN1OhZ
+baidu_site_verification: lhibPX6bK4
 
 # CNZZ count
 #cnzz_siteid:
