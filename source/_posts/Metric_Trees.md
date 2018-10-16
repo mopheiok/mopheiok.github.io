@@ -4,8 +4,9 @@ tags:
   - 机器学习
   - 算法
 mathjax: true
-categories: 算法
-date: 2018-10-11 23:35:52
+categories:
+  - 算法
+date: 2018-10-11 23:35:00
 ---
 Metric tree in an indexing structure that allows for efficient [KNN](http://mlwiki.org/index.php/KNN) search[^1]
 

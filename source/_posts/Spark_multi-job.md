@@ -2,8 +2,9 @@ title: Spark多Job并发执行
 tags:
   - Spark
 mathjax: true
-categories: Spark
-date: 2018-09-25 22:56:44
+categories:
+  - Spark
+date: 2018-09-25 22:56:00
 ---
 在使用spark处理数据的时候，大多数都是提交一个job执行，然后job内部会根据具体的任务，生成task任务，运行在多个进程中，比如读取的HDFS文件的数据，spark会加载所有的数据，然后根据block个数生成task数目，多个task运行中不同的进程中，是并行的，如果在同一个进程中一个JVM里面有多个task，那么多个task也可以并行，这是常见的使用方式。
 

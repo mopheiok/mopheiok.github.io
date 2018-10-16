@@ -1,9 +1,11 @@
----
 title: DBScan
-date: 2018-09-23 18:37:27
-tags: [机器学习, 算法]
+tags:
+  - 机器学习
+  - 算法
 mathjax: true
-categories: 机器学习
+categories:
+  - 机器学习
+date: 2018-09-23 18:37:00
 ---
 
 ## 基于密度的方法(Density-based methods)
