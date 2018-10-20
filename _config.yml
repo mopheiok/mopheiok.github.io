@@ -6,7 +6,7 @@
 title: Mophei's blog
 subtitle:
 description:
-keywords:
+keywords: Spark,AI,machine learning,algorithm,git,data science
 author: Mophei
 language: zh-CN
 timezone:
@@ -62,6 +62,7 @@ category_map:
   机器学习: machinelearning
   算法: algorithm
   Data Science: datascience
+  工具: tool
 tag_map:
 
 # Date / Time format

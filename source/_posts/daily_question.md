@@ -23,5 +23,12 @@ description:
 
 **Answer:** 
 Seasonality in time series occurs when time series shows a repeated pattern over time. E.g., stationary sales decreases during holiday season, air conditioner sales increases during the summers etc. are few examples of seasonality in a time series.
-
 Seasonality makes your time series non-stationary because average value of the variables at different time periods. Differentiating a time series is generally known as the best method of removing seasonality from a time series. Seasonal differencing can be defined as a numerical difference between a particular value and a value with a periodic lag.
+
+**Question:** Give some classification situations where you will use an SVM over a RandomForest Machine Learning algorithm and vice-versa.
+**Answer:** 
+ 1. When the data is outlier free and clean then go for SVM. If your data might contain outliers then Random forest would be the best choice
+ 2. Generally, SVM consumes more computational power than Random Forest, so if you are constrained with memory go for Random Forest machine learning algorithm.
+ 3. Random Forest gives you a very good idea of variable importance in your data, so if you want to have variable importance then choose Random Forest machine learning algorithm.
+ 4. Random Forest machine learning algorithms are preferred for multiclass problems.
+ 5. SVM is preferred in multi-dimensional problem set - like text classification
