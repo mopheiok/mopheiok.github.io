@@ -4,7 +4,7 @@ tags: []
 categories:
   - Data Science
 date: 2018-10-16 22:26:00
-keywords:
+keywords: AI,人工智能,数据分析,数据挖掘
 description:
 ---
 温习数据科学（DS）和商务分析（BA）领域常见的问题，希望我们一起思考。欢迎在评论区解答或讨论！

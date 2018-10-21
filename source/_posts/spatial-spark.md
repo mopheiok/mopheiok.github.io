@@ -1,13 +1,13 @@
-title: Spark处理空间数据
+title: 空间数据的Spark处理
 mathjax: true
 tags:
   - Spark
-  - Tree
+  - spatial
 categories:
   - Spark
-keywords: 'Spark, Gis, Geo, Spatial, 地理数据'
-date: 2018-10-18 00:31:00
-description:
+keywords: 'spark,rdd,spatial,空间数据,r树'
+description: 利用spark对空间数据构造RDD
+date: 2018-10-21 19:09:00
 ---
 ![comparison.png](https://upload-images.jianshu.io/upload_images/2268630-b3a6832de273974b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 [GeoSpark](http://datasystemslab.github.io/GeoSpark/)
