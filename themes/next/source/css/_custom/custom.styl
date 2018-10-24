@@ -45,6 +45,28 @@
     display: none;
 }
 
+// 去除页面底部页码上面的横线
+.pagination {
+    border: none;
+    margin: 0px;
+    box-shadow: none;
+    background-color: #fcfaf2;
+}
+// 页面底部页码
+.pagination .page-number.current {
+    color: #555
+    border-radius: 100%;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    background-color: rgba(255, 255, 255, 0.35);
+}
+.pagination .prev, .pagination .next, .pagination .page-number {
+    margin-bottom: 10px;
+    border: none;
+}
+.pagination .space {
+    color: rgb(255, 255, 255);
+}
+
 // 页面底部页脚
 .footer {
     background-color: rgba(0, 0, 0, 0.75);
