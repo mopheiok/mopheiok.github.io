@@ -51,8 +51,49 @@ abstract class Partitioner extends Serializable {
 }
 ```
 `def numPartitions: Int`：这个方法需要返回你想要创建分区的个数；
-`def getPartition(key: Any): Int`：这个函数需要对输入的key做计算，然后返回该key的分区ID，范围一定是0到`numPartitions-1`；
+`def getPartition(key: Any): Int`：这个函数需要对输入的key做计算，然后返回该key的分区ID，范围一定是0到`numPartitions-1`，**分区ID相同的数据元素将被分配到同一个数据分片中**；
 `equals()`：这个是Java标准的判断相等的函数，之所以要求用户实现这个函数是因为Spark内部会比较两个RDD的分区是否一样。[^Spark自定义分区(Partitioner)]
+
+```scala
+  val quadtree: QtreeForPartion = {
+
+    val total = rdd.count()
+
+    // 不同数据量的采样比例不同
+    val fraction2 = if (total * fraction > 5e5) (5e5 / total).toFloat else fraction
+
+    //对key值进行采样：true 泊松采样，有放回抽样； false 伯努利采样，无放回抽样；fraction 抽样比例
+    var sampleData = rdd.map(_._1).sample(false, fraction2).collect()
+
+    //in case the sample data size is too small,expand the sample ratio 50 times.
+    if (sampleData.length < 10000) {
+      sampleData = rdd.map(_._1).sample(false, 0.2).collect()
+    }
+
+    //整数除法：每个数据分片分配的抽样数据个数，即叶子节点的大小，是否每个数据分片都能够有数据
+    var leafBound = sampleData.length / partitions
+
+    if (leafBound == 0) {
+      leafBound = qtreeUtil.leafbound
+    }
+
+    val qtree = new QtreeForPartion(leafBound)
+
+    // 为什么只有采样数据？？？
+    sampleData.foreach {
+      case p: Point =>
+        qtree.insertPoint(p)
+
+      case _ => println("do not support this data type")
+    }
+
+    realnumPartitions = qtree.computePIDofLeaf(sampleData.length, partitions)
+    //println("bound "+leafbound)
+    //qtree.printTreeStructure()
+
+    qtree
+  }
+```
 
 
 
