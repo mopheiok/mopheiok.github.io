@@ -84,7 +84,7 @@ pagination_dir: page
 theme: next
 
 baidu_url_submit:
-  count: 12 ## 提交最新的一个链接
+  count: 20 ## 提交最新的一个链接
   host: mophei.coding.me
   token: 1vqRZCYXX25sUPFK
   path: baidu_urls.txt

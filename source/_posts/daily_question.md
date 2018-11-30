@@ -3,7 +3,9 @@ mathjax: true
 tags: []
 categories:
   - Data Science
-keywords: 'AI,人工智能,数据分析,数据挖掘,k-means,A/B测试,Boosting,Stacking,时间序列,季节因子,决策树,回归,监督学习,朴素贝叶斯,Naive Bayes'
+keywords: >-
+  AI,人工智能,数据分析,数据挖掘,k-means,A/B测试,Boosting,Stacking,时间序列,季节因子,决策树,回归,监督学习,朴素贝叶斯,Naive
+  Bayes
 description: 温习数据科学（DS）和商务分析（BA）领域常见的问题，希望我们一起思考。欢迎在评论区解答或讨论！
 date: 2018-10-16 22:26:00
 ---
@@ -78,6 +80,105 @@ Reference: https://en.wikipedia.org/wiki/Determining_the_number_of_clusters_in_a
  3. 文本分类/垃圾邮件过滤/情感分析：与其他算法相比，主要用于文本分类的朴素贝叶斯分类器（由于更好地导致多类问题和独立性规则）具有更高的成功率。 因此，它被广泛用于垃圾邮件过滤（识别垃圾邮件）和情感分析（在社交媒体分析中，以识别积极和消极的客户情绪）
  4. 推荐系统：朴素贝叶斯分类器和协同过滤一起构建一个推荐系统，该系统使用机器学习和数据挖掘技术来过滤看不见的信息并预测用户是否想要一个给定的资源
  
- ### 2018-10-27
+### 2018-10-27
  **Question:** 描述什么是决策树算法
  **Answer:** 决策树是一种监督学习算法。 它适用于分类和连续输入和输出变量。 在该技术中，我们基于输入变量中最重要的分裂器/微分器将群体或样本分成两个或更多个同构集（或子群）
+ 
+### 2018-10-30
+ **Question:** Whats's the advantages and disadvantages of decision tree?
+ **Answer:** 
+ Advantage:
+ 1. 易于理解：决策树输出非常容易理解。 它的图形表示非常直观，用户可以轻松地将他们的假设联系起来。
+ 2. 在数据探索中很有用：决策树是识别最重要变量和两个或多个变量之间关系的最快方法之一。 在决策树的帮助下，我们可以创建具有更好预测目标变量能力的新变量/特征。 它也可以用于数据探索阶段。 例如，我们正在研究一个问题，即我们有数百个变量可用的信息，决策树将有助于识别最重要的变量。
+ 3. 需要更少的数据清理：与其他一些建模技术相比，它需要更少的数据清理。 它不受异常值和缺失值的影响。
+ 4. 数据类型不是约束：它可以处理数字和分类变量。
+ 5. 非参数方法：决策树被认为是非参数方法。 这意味着决策树没有关于空间分布和分类器结构的假设。
+ 
+Disadvantages:
+1. 过度拟合：过度拟合是决策树模型最实际的难点之一。 通过设置模型参数和修剪的约束来解决此问题。
+2. 不适合连续变量：在处理连续数值变量时，决策树在对不同类别的变量进行分类时会丢失信息。
+
+### 2018-10-31
+**Question:** What are the primary differences & similarity between classification and regression tree?
+**Answer:** 
+1. 当因变量是连续的时，使用回归树。 因变量是分类时使用分类树。
+2. 在回归树的情况下，训练数据中终端节点获得的值是落在该区域中的观察的平均响应。 因此，如果看不见的数据观察属于该区域，我们将使用平均值进行预测。
+3. 在分类树的情况下，终端节点在训练数据中获得的值（类）是落在该区域中的观察模式。 因此，如果看不见的数据观察属于该区域，我们将使用模式值进行预测。
+4. 两棵树都将预测空间（自变量）划分为不同的和不重叠的区域。 为简单起见，您可以将这些区域视为高维盒子或盒子。
+5. 树都遵循自上而下的贪婪方法，称为递归二进制分裂。 我们将其称为“自上而下”，因为当所有观察在单个区域中可用时，它从树的顶部开始，并且连续地将预测器空间分成树下的两个新分支。 它被称为'贪婪'，因为该算法仅关注当前的分裂，而不关心将来会导致更好的树的分裂。
+6. 继续该拆分过程，直到达到用户定义的停止标准。
+7. 在这两种情况下，分裂过程都会导致树木完全生长，直到达到停止标准。 但是，完全成长的树可能会过度填充数据，导致看不见的数据的准确性很差。
+
+## 2018-11
+### 2018-11-01
+**Question:** How does a tree decide where to split?
+**Answer:** The decision criteria is different for classification and regression trees.
+分类和回归树的决策标准不同。
+Decision trees use multiple algorithms to decide to split a node in two or more sub-nodes. The creation of sub-nodes increases the homogeneity of resultant sub-nodes.
+决策树使用多种算法来决定将节点拆分为两个或更多个子节点。 子节点的创建增加了所得子节点的同质性。
+Decision tree splits the nodes on all available variables and then selects the split which results in most homogeneous sub-nodes. Some most commonly used algorithms to split the node are: Gini Index, Chi-Square, Information Gain, Reduction in Variance.
+决策树在所有可用变量上拆分节点，然后选择导致最同质子节点的拆分。 一些最常用的分割节点的算法是：基尼指数，卡方，信息增益，方差减少。
+
+### 2018-11-02
+**Question:** Tell me some majors issues needed to be considered in supervised machine learning?
+告诉我一些在监督机器学习中需要考虑的专业问题？
+**Answer:**
+ - Bias-variance tradeoff
+偏差 - 方差权衡
+ - Function complexity and amount of training data
+功能复杂性和训练数据量
+ - Dimensionality of the input space
+输入空间的维度
+ - Noise in the out put values
+输出值中的噪声
+ - Input data problems such as Heterogeneity of the data. Redundancy in the data and Presence of interactions and non-linearities.
+输入数据问题，例如数据的异构性。 数据中的冗余以及交互和非线性的存在
+
+Reference: https://en.wikipedia.org/wiki/Supervised_learning
+
+### 2018-11-03
+**Question:** What are methods to make a predictive model robust to outliers?
+有哪些方法可以使预测模型对异常值具有鲁棒性
+**Answer:**
+ - Use a model that is resistant to outliers. Tree-based models are not as affected by outliers as regression models. For statistical tests, choose non -parametric test instead of parametric test
+使用对异常值有抵抗力的模型。 基于树的模型不像回归模型那样受到异常值的影响。 对于统计测试，请选择非参数测试而不是参数测试
+ - Use a more robust error metric. For instance, use absolute mean difference instead of mean squared error to reduce the effect of outliers
+使用更强大的错误指标。 例如，使用绝对平均差而不是均方误差来减少异常值的影响
+ - Winsorize the data. Cap the data at a certain threshold
+对数据进行Winsorize。 将数据限制在特定阈值
+ - Transform the data. If the data has a pronounced right tail, use log transform
+转换数据。 如果数据具有明显的右尾，请使用log 转换
+ - Remove the outliers. If there are very few of outliers and you are certain that they are anomalies not worth predicting
+删除异常值。 如果极少数异常值并且您确定它们是不值得预测的异常
+
+Reference: https://www.quora.com/What-are-methods-to-make-a-predictive-model-more-robust-to-outliers
+
+### 2018-11-06
+**Question:** How does the KNN algorithm work?
+**Answer:** KNN是一种有监督的机器学习算法，基本上它基于从查询实例到训练样本的最小距离来确定K-最近邻居是查询实例的预测。 它可以用于分类和回归问题。
+### 2018-11-07
+**Question:** How do we choose the factor K?
+**Answer:** 较小的K将导致结果有很大的差异，较大的K将使每个点分类为最可能的类。 因此，我们需要做的是将一部分训练数据留作验证集，然后更改不同数量的K以查看哪一个能够获得最佳性能。
+### 2018-11-08
+**Question:** Talk about how K-D Tree improve the KNN
+**Answer:** 
+1. k-d树是二叉树，其中每个节点是k维点。 每个非叶节点都可以被认为是隐式生成一个分裂超平面，它将空间划分为两个部分，称为半空间。 该超平面左侧的点由该节点的左子树表示，超平面右侧的点由右子树表示。 超平面方向按以下方式选择：树中的每个节点与k维度中的一个相关联，超平面垂直于该维度的轴。
+2. 基本上，KD Tree将数据集划分为几个区域，这次当我们计算查询实例的距离时，我们计算它到所有其他数据点的距离，我们只计算在同一区域内的数据的距离 使用查询实例，从而减少计算时间的复杂性。
+
+### 2018-11-09
+**Question:** Describe the basic steps to do the PCA(Principal Components Analysis)
+**Answer:**
+1. 标准化数据
+2. 从协方差矩阵获得特征向量和特征值用于相关矩阵，或执行
+3. 奇异向量分解。
+4. 按降序对特征值进行排序，并选择与k个最大特征值对应的k个特征向量，其中k是新特征子空间的维数
+5. 从所选择的k个本征向量构造投影矩阵W.
+6. 通过W变换原始数据集X以获得k-维度特征子空间Y.
+
+### 2018-11-10
+**Question:** What is Random Projection?
+什么是随机投影
+**Answer:** It is a unsupervised machine learning method to do the dimension reduction.
+这是一种无监督的机器学习方法来进行降维。
+It creates a minimum reduced dimension k which can make the new pairwise data distance preserved within an accepted error comparing to the original pairwise data distance
+它创建了最小缩减尺寸k，这可以使新的成对数据距离与原始成对数据距离相比保持在可接受的误差内

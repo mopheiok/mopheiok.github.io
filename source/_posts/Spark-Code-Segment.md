@@ -68,6 +68,20 @@ val rdd = sc.parallelize(Array(("A",1),("A",1),("A",1),("b",1),("b",1)), 5)
 RDDUtils.getPartitionCounts(sc, rdd).foreach(println)
 RDDUtils.collectPartitions(sc, rdd)
 ```
+### glom函数
+该函数是将RDD中每一个分区中类型为T的元素转换成Array[T]，这样每一个分区就只有一个数组元素。
+```scala
+scala> var rdd = sc.makeRDD(1 to 10,3)
+rdd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[38] at makeRDD at :21
+
+scala> rdd.partitions.size
+res33: Int = 3  //该RDD有3个分区
+
+scala> rdd.glom().collect
+res35: Array[Array[Int]] = Array(Array(1, 2, 3), Array(4, 5, 6), Array(7, 8, 9, 10))
+//glom将每个分区中的元素放到一个数组中，这样，结果就变成了3个数组
+```
+
 
 ##  [*map* VS *mapPartitions*](http://wanshi.iteye.com/blog/2183906)
 `mapPartitions`函数和`map`函数类似，只不过映射函数的参数由RDD中的每一个元素变成了RDD中每一个分区的迭代器。

@@ -1,4 +1,4 @@
-title: DBScan
+title: 【牛人博客之】DBScan
 tags:
   - 机器学习
   - 算法

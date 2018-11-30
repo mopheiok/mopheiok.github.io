@@ -7,7 +7,7 @@ keywords: 'Spark, Gis, Geo, Spatial, 地理数据'
 date: 2018-10-18 00:31:00
 description:
 ---
-空间数据库是一个被优化的数据库，用于存储和查询代表几何空间对象的数据。多数空间数据库能够支持点、线及多边形这些简单的几何对象。有些空间数据库则可以处理3D、拓扑覆盖、线性网络以及[TIN][1]等更复杂的几何结构[^wikipedia]。
+空间数据库是一个被优化的数据库，用于存储和查询代表几何空间对象的数据。多数空间数据库能够支持点、线及多边形这些简单的几何对象。有些空间数据库则可以处理3D、拓扑覆盖、线性网络以及[TIN][1]等更复杂的几何结构[^1]。
 数据库系统使用索引来实现快速查询。普通数据库的索引数据方式在进行空间查询时不够优化，因此空间数据库使用空间索引来加速对数据库的操作。
 
 <!--more-->
@@ -39,6 +39,7 @@ description:
  - Binary space partitioning (BSP-Tree): Subdividing space by hyperplanes.
 
 
-[^wikipedia]: https://en.wikipedia.org/wiki/Spatial_database
 
 [1]: https://en.wikipedia.org/wiki/Triangulated_irregular_network
+
+[^1]: https://en.wikipedia.org/wiki/Spatial_database
