@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://mophei.coding.me/Tools/github_hexo/</loc>
+    
+    <lastmod>2019-03-23T10:34:41.041Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://mophei.coding.me/machinelearning/similarity/</loc>
     
     <lastmod>2019-03-23T03:21:46.868Z</lastmod>

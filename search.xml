@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Hexo搭建个人博客]]></title>
+    <url>%2FTools%2Fgithub_hexo%2F</url>
+    <content type="text"><![CDATA[Ubuntu安装Node.js安装Node.js v11.x:123# Using Ubuntucurl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -sudo apt-get install -y nodejs 安装Hexo使用npm命令安装Hexo，输入：12345# 安装Hexo客户端npm install -g hexo-cli# 安装Hexo依赖npm install 利用 gulp 压缩代码1npm install gulp -g 生成ssh密钥文件：1ssh-keygen -t rsa -C &quot;你的GitHub注册邮箱&quot; [1].https://zhuanlan.zhihu.com/p/26625249 [2].https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[经纬度计算距离]]></title>
     <url>%2Fspark%2Fdistance_latitude_longitude%2F</url>
     <content type="text"><![CDATA[根据经纬度计算距离公式 S = 2\cdot R \cdot arcsin \sqrt{sin^2\frac{a}{2} + cos(lat1) \cdot cos(lat2) \cdot sin^2\frac{b}{2}}其中: (Lng1, lat1) 表示A点经纬度对应弧度，(lng2, lat2)表示B点经纬度对应弧度； $a=Lat1-Lat2$为两点纬度的弧度之差，$b=Lng1-Lng2$为两点经度的弧度之差； R为地球半径，$R=6378.137km$ 公式计算出来的结果单位为千米。若将半径改以米为单位，则计算的结果单位为米； 计算经度与谷歌地图的距离经度差不多，相差范围在0.2米以下 这种计算方式一般都是直线距离 一般地图上显示的左边顺序为：纬度在前（范围-90 ~ 90），经度在后（范围-180 ~ 180） 使用SQL计算距离的代码 1234SELECT *, 6378.138 *1000 * 2 * ASIN(SQRT(POW(SIN((lat1 * PI() / 180 - lat2 * PI() / 180) / 2), 2) + COS(lat1 * PI() / 180) * COS(lat2 * PI() / 180) * POW(SIN((lng1 * PI() / 180 - lng2 * PI() / 180) / 2), 2))) AS distanceFROM distanceORDER BY distance ASC 使用JAVA计算距离的代码 12345678910111213private static final double EARTH_RADIUS = 6378137;//赤道半径private static double rad(double d)&#123; return d * Math.PI / 180.0;&#125;public static double GetDistance(double lon1,double lat1,double lon2, double lat2) &#123; double radLat1 = rad(lat1); double radLat2 = rad(lat2); double a = radLat1 - radLat2; double b = rad(lon1) - rad(lon2); double s = 2 *Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2)+Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2))); s = s * EARTH_RADIUS; return s;//单位米&#125;]]></content>
