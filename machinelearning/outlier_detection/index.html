@@ -1,0 +1,335 @@
+<!DOCTYPE html><html class="theme-next gemini use-motion" lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"><meta name="theme-color" content="#222"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="baidu-site-verification" content="QLJZx7s7QJ"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2"><link rel="icon" type="image/png" sizes="32x32" href="/images/m.png?v=6.4.2"><link rel="icon" type="image/png" sizes="16x16" href="/images/m.png?v=6.4.2"><link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Gemini",version:"6.4.2",sidebar:{position:"right",display:"post",offset:5,b2t:!1,scrollpercent:!1,onmobile:!1},fancybox:!1,fastclick:!1,lazyload:!1,tabs:!0,motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><meta name="description" content="转自知乎问答数据挖掘中常见的「异常检测」算法有哪些？ 一般情况下，可以把异常检测看成是数据不平衡下的分类问题。因此，如果数据条件允许，优先使用有监督的异常检测[6]。实验结果[4]发现直接用XGBoost进行有监督异常检测往往也能得到不错的结果，没有思路时不妨一试。"><meta name="keywords" content="机器学习"><meta property="og:type" content="article"><meta property="og:title" content="数据挖掘中常见的「异常检测」算法"><meta property="og:url" content="https://mophei.coding.me/machinelearning/outlier_detection/index.html"><meta property="og:site_name" content="Mophei&#39;s blog"><meta property="og:description" content="转自知乎问答数据挖掘中常见的「异常检测」算法有哪些？ 一般情况下，可以把异常检测看成是数据不平衡下的分类问题。因此，如果数据条件允许，优先使用有监督的异常检测[6]。实验结果[4]发现直接用XGBoost进行有监督异常检测往往也能得到不错的结果，没有思路时不妨一试。"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2268630-db72363864bf387f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"><meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2268630-1ec6e59be3995b2f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"><meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2268630-c463e35e3fbaa87f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"><meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2268630-658a4dddfed18586.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"><meta property="og:updated_time" content="2019-03-23T02:29:22.670Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="数据挖掘中常见的「异常检测」算法"><meta name="twitter:description" content="转自知乎问答数据挖掘中常见的「异常检测」算法有哪些？ 一般情况下，可以把异常检测看成是数据不平衡下的分类问题。因此，如果数据条件允许，优先使用有监督的异常检测[6]。实验结果[4]发现直接用XGBoost进行有监督异常检测往往也能得到不错的结果，没有思路时不妨一试。"><meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/2268630-db72363864bf387f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"><link rel="canonical" href="https://mophei.coding.me/machinelearning/outlier_detection/"><script type="text/javascript" id="page.configurations">CONFIG.page={sidebar:""}</script><title>数据挖掘中常见的「异常检测」算法 | Mophei's blog</title><noscript><style type="text/css">.sidebar-inner,.use-motion .brand,.use-motion .collection-title,.use-motion .comments,.use-motion .menu-item,.use-motion .motion-element,.use-motion .pagination,.use-motion .post-block,.use-motion .post-body,.use-motion .post-header{opacity:initial}.use-motion .logo,.use-motion .site-subtitle,.use-motion .site-title{opacity:initial;top:initial}.logo-line-after i{right:initial}</style></noscript></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN"><div class="container sidebar-position-right page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">Mophei's blog</span><span class="logo-line-after"><i></i></span></a></div></div><div class="site-nav-toggle"> <button aria-label="切换导航栏"><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-top"><a href="/top/" rel="section"><i class="menu-item-icon fa fa-fw fa-signal"></i><br>热门</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i></span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"> <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><div class="reading-progress-bar"></div><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="https://mophei.coding.me/machinelearning/outlier_detection/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="Mophei"><meta itemprop="description" content=""><meta itemprop="image" content="/images/fox.png"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="Mophei's blog"></span><header class="post-header"><h2 class="post-title" itemprop="name headline">数据挖掘中常见的「异常检测」算法</h2><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">发表于</span> <time title="创建时间：2019-03-08 00:04:00" itemprop="dateCreated datePublished" datetime="2019-03-08T00:04:00+08:00">2019-03-08</time> <span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-calendar-check-o"></i></span> <span class="post-meta-item-text">更新于</span> <time title="修改时间：2019-03-23 10:29:22" itemprop="dateModified" datetime="2019-03-23T10:29:22+08:00">2019-03-23</time></span> <span class="post-category"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i></span> <span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/machinelearning/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span></span> <span class="post-comments-count"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-comment-o"></i></span> <a href="/machinelearning/outlier_detection/#comments" itemprop="discussionUrl"><span class="post-meta-item-text">评论数：</span><span class="post-comments-count valine-comment-count" data-xid="/machinelearning/outlier_detection/" itemprop="commentCount"></span></a></span> <span id="/machinelearning/outlier_detection/" class="leancloud_visitors" data-flag-title="数据挖掘中常见的「异常检测」算法"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span> <span class="post-meta-item-text">阅读次数：</span><span class="leancloud-visitors-count"></span></span></div></header><div class="post-body" itemprop="articleBody"><p>转自知乎问答<a href="https://www.zhihu.com/question/280696035/answer/438788495" target="_blank" rel="noopener">数据挖掘中常见的「异常检测」算法有哪些？</a></p><p>一般情况下，可以把异常检测看成是数据不平衡下的分类问题。因此，如果数据条件允许，优先使用有监督的异常检测[6]。实验结果[4]发现直接用XGBoost进行有监督异常检测往往也能得到不错的结果，没有思路时不妨一试。</p><a id="more"></a><p>而在仅有少量便签的情况下，也可以采用半进度异常检测模型。比如把无监督学习作为一种特征抽取方式来辅助监督学习[4, 8]，和stacking比较类似。这种方法也可以理解成通过无监督的特征工程对数据进行预处理，喂给有监督的分类模型。</p><p>但在现实情况中，异常检测问题往往是没有便签的，训练数据中并未标出哪些是异常点，因此必须使用无监督学习。从使用角度出发，文章重点关注无监督学习。</p><p>本文结果如下：1. 介绍常见的无监督异常算法及实现；2. 对比多种算法的检测能力； 3. 对比多种算法的运算开销； 4. 总结并归纳如何处理异常检测问题； 5. 代码重现步骤。</p><h2 id="1-无监督异常检测"><a href="#1-无监督异常检测" class="headerlink" title="1. 无监督异常检测"></a>1. 无监督异常检测</h2><p>如果归类的话，无监督异常检测模型可以大致分为：</p><ul><li><p><strong>统计与概率模型（statistical and probabilistic models）：</strong>主要是对数据的分布做出假设，并找出假设下所定义的“异常”，因此往往会使用极值分布或者假设检验。比如对最简单的以为数据假设搞死分，然后将距离简直特定范围以外的数据当作异常点（$3-6\sigma$检测）。而推广到高维后，可以假设每个维度各自独立，并将各个维度上的异常度相加 （具体如何理解呢，是否有具体例子） 。如果考虑特征间的相关性，也可以用马氏距离（Mahalanobis distance）来衡量数据的异常度[12]。不难看出，这类方法最大的好处就是速度一般比较快，但因为存在比较强的“假设”，效果不一定很好。</p></li><li><p><strong>线性模型（Linear Models）：</strong>假设数据在低维空间上有嵌入（什么意思？），那么无法、或者在低维空间投射后表现不好的数据可以认为是离群点。举个简单的例子，PCA可以用于做异常检测[10]，一种方法就是找到​个向量特征（eigenvector），并计算每个样本在经过这​个特征向量投射后的重建误差（reconstruction error），而正常点的重建误差应该小于异常点。同理，也可以计算每个样本到这​个特征向量所构成的超空间的加权欧氏距离（特征值越小权重越大）。在相似的思路下，我们可以直接对协方差居中进行分析，并把样本的马氏距离（在考虑特征间关系时样本到分布中的距离）作为样本的异常度，而这种方法也可以被理解为一种软性（Soft PCA）[6]。同时，另一种经典算法One-class SVM[3]也一般被归类为线性模型。</p></li><li><p><strong>基于相似度衡量的模型（Proximity bases models）：</strong>异常点因为和正常点的分布不同，因此相似度较低，由此衍生了一系列算法通过相似度来识别异常点。比如最简单的​近邻就可以做异常检测，一个样本和它第​个近邻的距离就可以被当做是异常值，显然异常点的​近邻距离更大。同理，基于密度分析如LOF[1]、LOCI和LoOP主要是通过局部的数据密度来检测异常。显然，异常点所在空间的数据点少、密度低。相似的是，Isolation Forest[2]通过划分超平面来计算”孤立“一个样本所需的超平面数量（可以想象成在想吃蛋糕上的樱桃所需的最少刀数）。在密度低的空间里（异常点所在空间中），孤立一个样本所需要的划分次数更少。另一种相似的算法ABOD[7]是计算每个样本与所有其他样本对所形成的夹角的方差，异常点因为远离正常点，因此方差变化小。话句话说，<strong>大部分异常检测算法都可以被认为是一种估计相似度，无论是通过密度、距离、夹角或是划分超平面。</strong>通过聚类也可以被理解为一种相似度度量，比较常见不在赘述。</p></li><li><p><strong>集成异常检测与模型融合：</strong>在无监督学习是，提高模型的鲁棒性很重要，因此集成学习就大有用武之地。比如上面提到的Isolation Forest，就是基于构建多棵决策树实现的。最早的集成检测框架feature bagging[19]与分类问题中的随机森林（random forest）很像，先将训练数据随机划分（每次选取所有样本的d/2~d个特征，d代表特征数），得到多个子训练集，再在每个训练集上训练一个独立的模型（默认为LOF）并最终合并所有的模型结果（如通过平均）。值得注意的是，因为没有标签，异常检测往往是通过bagging和feature Bagging比较多，而boosting比较少见。boosting情况下的异常检测，一般需要生成为标签，可参考[13,14]。集成异常检测是一个新兴但很有趣的领域，综述文章可以参考[16,17,18]。</p></li><li><p><strong>特定领域上的异常检测：</strong>比如图像异常检测[21]，顺序及流数据异常检测（时间序列异常检测）[22]，以及高维度空间上的异常检测[23]，比如前文提到的Isolation Forest就很适合高维数据上的异常检测。</p></li></ul><p><strong>不难看书，上文提到的划分标准其实是互相交织的</strong>。比如k-近邻可以看做是概率模型非参数化后的一种变形，而通过马氏距离计算异常度虽然是线性模型，但也对分布有假设（高斯分布）。Isolation Forest虽然是集成学习，但其实和分析数据的密度有关，并且适合高维数据上的异常检测。<strong>在这种基础上，多种算法其实是你中有我，我中由你，相似的理念都可以被推广和应用</strong>，比如计算重建误差不仅可以用PCA，也可以用神经网络中的auto-encoder。另一种划分异常检测模型的标准可以理解为局部算法（local）和全局算法（global），这种划分方法时考虑到异常点的特性。想要了解更多异常检测还是推荐看经典教科书Outlier Analysis[6]，或者综述文章[15]。</p><p><strong>虽然一直有新的算法被提出，但因为需要采用无监督学习，且我们队数据分布的有限了解，模型选择往往还是采用试错法</strong>，因此快速迭代地尝试大量的算法就是一个必经之路。<strong>我们会对比多种算法的预测能力、运算开销及模型特点。如无特别说明，本文找那个的图片、代码均来自于开源Python异常检测工具库<a href="https://github.com/yzhao062/Pyod" target="_blank" rel="noopener">Pyod</a></strong>。文中实验所使用的17个数据集均来自于（<a href="http://odds.cs.stonybrook.edu/#table1" target="_blank" rel="noopener">ODDS-Outlier Detection DataSets</a>）。</p><p>本文中所对比的算法（详见<a href="https://github.com/yzhao062/Pyod" target="_blank" rel="noopener">Pyod</a>介绍）：</p><ol><li><p>PCA [10]</p></li><li><p>MCD: Minimum Covariance Determinant [11, 12]</p></li><li><p>OCSVM: One-class Support Vector Machines [3]</p></li><li><p>LOF: Local Outlier Factor [1]</p></li><li><p>kNN: k Nearest Nerghbors [19, 20]</p></li><li><p>HBOS: Histogram-based Outlier Score [5]</p></li><li><p>FastABOD: Fast Angle-Based Outlier Detection using approximation [7]</p></li><li><p>Isolation Forest [2]</p></li><li><p>Feature Bagging [9]</p></li></ol><p>先来看下这九种算法在人工生成的数据上的表现（正常点由高斯分布生成，异常点由均匀生成）。在这种简单数据上，我们发现大部分算法的表现都不错，值得关注的有几点：</p><ul><li><p>PCA（图7）和MCD（图9）的决策边界（decision boundary）非常相似，我们前文提到过，协方差矩阵可以看做是PCA的软性版本。其实线性模型的决策边界都有共性，图2中的one-class SVM he PCA及MCD的决策边界长得也差不多。而且你回发现这些线性模型的形成可视化是一圈一圈向外降低的，这恰恰是因为对数据分布假设的原因。</p></li><li><p>HBOs（图5）的分类边界像是多个长方形组合在一起。这和它的原理有关，HBOS全称Histogram-based outlier score，它假设每个维度独立并在每个维度上划分n个区间，每个区间所对应异常值取决于密度。密度越高，异常值越低，因此也可以看成是一种假设维度独立的密度检测。一定程度上，HBOS和Isolation Forest有一定的相似性，看Isolation Forest（图4）很像是一种加了随机性的HBOS（有相似处但不是）。</p></li><li><p>ABOD（图6）中的决策边界非常复杂，显然存在一定程度上的过拟合，效果也不是太好，具体原因我们稍后再分析。</p></li></ul><p>通过这个toy example我们想给大家看一下算法间的联系。</p><p><img src="https://upload-images.jianshu.io/upload_images/2268630-db72363864bf387f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p><h2 id="2-模型检测效果"><a href="#2-模型检测效果" class="headerlink" title="2. 模型检测效果"></a>2. 模型检测效果</h2><p>我们采用ROC和Precision@Rank n (prn)作为衡量标准。ROC大家很熟悉了（要做到不查资料说出其概念），而后者指的是在假设有n个异常点时的经度（precision），和推荐系统中的precision @ k 是一样的。异常检测因为数据不平衡，一般不适合用准确度（误分率）来进行评估。</p><p><strong>在下面的结果图表中，最优（次优）模型均用黑体加粗，最差用红色字体标出。</strong></p><p><img src="https://upload-images.jianshu.io/upload_images/2268630-1ec6e59be3995b2f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Table 1. 9种算法在17个数据集上的ROC (60%训练，40%测试)"></p><p><img src="https://upload-images.jianshu.io/upload_images/2268630-c463e35e3fbaa87f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Table 1. 9种算法在17个数据集上的ROC (60%训练，40%测试)"></p><p>对以上结果进行初步分析：</p><ul><li><p>总体来看，没有任何模型表现持续最好。Isolation Forest和KNN的表现非常稳定，分别在ROC和PRN上有比较优秀的表现。</p></li><li><p>KNN等模型基于距离度量，<strong>因此受到数据维度的影响比较大，当维度比较低时表现很好</strong>。如果异常特征隐藏在少数维度上时，KNN和LOF类的效果就不会太好，此时该选择Isolation Forest。</p></li><li><p>部分模型较不稳定，受到数据裱花的影响较大，如HBOS在8个数据上表现优异，但也在3个数据上表现最差。</p></li><li><p>简单模型的表现不一定差，比如KNN和MCD的原理都不负责，但表现均不错。</p></li><li><p>ABOD综合看效果最差，应该避免。这个实验中所用的ABOD版本是FastABOD并用10个近邻进行近似，可能精准版的ABOD效果会好一些，但运算复杂度会大幅度上升（​）。</p></li></ul><h2 id="3-模型运算开销"><a href="#3-模型运算开销" class="headerlink" title="3. 模型运算开销"></a>3. 模型运算开销</h2><p><img src="https://upload-images.jianshu.io/upload_images/2268630-658a4dddfed18586.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Table 3. 9种算法在17个数据集上的运算开销 (60%训练，40%测试)"></p><p>结合分析模型的运算开销，我们可以得到一些结论：</p><ul><li><p>Feature Bagging的运算开销很高，这个是可以理解的，因为它训练了10个LOF作为子模型，可以观察一下它的速度差不多比LOF慢十倍。但值得注意的是Feature Bagging其实是一个模型框架，子模型可以用任何模型，比如HBOS等，因此效果可以提升。</p></li><li><p>HBOS和PCA的运算效率都很高，这个主要是因为模型比较简单。但也要值得注意PCA中需要逆矩阵，随着维度增加和实现不够高效可能很慢，所以和工具库的实现方法关系很大。同理，MCD和PCA虽然比较相似，但前者比后者慢很多。</p></li><li><p>LOF和KNN的表现相近，运算开销都相对较高，但在中小数据集上基本可以忽略这一点。</p></li><li><p>Isolation Forest的表现较差，但这个并不意外，因为我们测试的主要是中小数据集。随着数据量和维度的上升，Isolation Forest会比较有优势。</p></li><li><p>ABOD的运算效率很低，大部分情况下比KNN和LOF还慢，应该避免。</p></li></ul><h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h2><p>首先我们要意识到这个实验的<strong>局限性</strong>：</p><ul><li><p>选用的数据集普遍偏小（最大的不过50000条数据），因此不能完全反应出在极大数据量下的情况，比如Isolation Forest更适合的高维空间。我们也没有测试稀疏数据上的表现，这个有待验证。</p></li><li><p>为了实验的可重复性，固定了训练集和测试集（random_state=42）。但考虑到准确性，应该随机多次划分数据并求平均。</p></li><li><p>测试的模型有限，如果Pyod中引进了新的模型会更新这个结果。</p></li><li><p>算法的实现基础各不相同，比如有的底层是用C实现并经过优化，有的模型未经过优化，因此比较起来可能不大公平</p></li><li><p>所有模型均未调参，均是模型实现中的默认值。可能部分模型在经过精调以后有卓越的效果。</p></li></ul><p>但即使这样，<strong>实验结果也带来很多异常检测模型选择时的思路：</strong></p><ul><li><p><strong>不存在普遍意义上的最优模型，但有不少模型比较稳定</strong>，建议中小数据集上使用KNN或者MCD，中大型数据集上使用Isolation Forest。</p></li><li><p><strong>模型效果和效率往往是对立的</strong>，比如PCA和MCD原理相似，但前者很快却效果一般，后者较慢但效果更好，因为后者比前者所考虑计算的更多，前者可以被认为是后者的简化版本。</p></li><li><p>因为一场检测往往是无监督的，<strong>稳定有时候比忽高忽低的性能更重要</strong>。所以即使HBOS运算速度很快，但因为效果时好时坏依然不是首选。</p></li><li><p>简单的模型不一定表现不好，比如KNN和MCD都属于非常简单的模型，但表现出众。</p></li></ul><p>所以面对一个全新的异常检测问题，我个人认为可以遵循以下步骤分析：</p><ol><li><p>我们队数据有多少了解，数据分布是什么样的，异常分布可能是什么样的。在了解这点后可以根据假设选择模型。</p></li><li><p>我们解决的问题是否有标签，如果有的话，我们应该优先使用监督学习来解决问题。标签信息非常宝贵，不要浪费。</p></li><li><p>如果可能的话，尝试多种不同的算法，尤其是我们对于数据的了解有限时。</p></li><li><p>可以根据数据的特点选择算法，比如中小数据集低纬度的情况下可以选择KNN，大数据集高维度时可以选择Isolation Forest。如果Isolation Forest的运算开销是个问题的话，也可以试试HBOS，在特征独立时可能有奇效。</p></li><li><p>无监督异常检测验证模型结果并不容易，可以采用半自动的方式：置信度高的自动放过，置信度低的人工审核。</p></li><li><p>意识到异常的趋势和特征往往处于变化过程中。比如明天的欺诈手段和今天的可能不同，因此需要不断的重新训练模型及调整策略。</p></li><li><p>不要完全依赖模型，尝试使用半自动化的策略：人工规则+检测模型。很多经验总结下来的人工规则很有用的，不要尝试一步到位的使用数据策略来代替现有规则。</p></li></ol><h2 id="5-复现实验步骤（可选）"><a href="#5-复现实验步骤（可选）" class="headerlink" title="5. 复现实验步骤（可选）"></a>5. 复现实验步骤（可选）</h2><ol><li><p>文中toy example的实验均直接取自开发者的GitHub（<a href="https://github.com/yzhao062/pyod" target="_blank" rel="noopener">代码</a>）</p></li><li><p>文中的对比实验也来自于开发者的GitHub（<a href="https://github.com/yzhao062/pyod/blob/master/notebooks/Benchmark.ipynb" target="_blank" rel="noopener">Jupyter Notebooks</a>）</p></li><li><p>开发者提供了在线Jupyter Notebooks可以直接运行，无需安装，步骤：</p><ol><li><p>点击<a href="https://mybinder.org/v2/gh/yzhao062/Pyod/master" target="_blank" rel="noopener">Binder(beta)</a></p></li><li><p>等待Notebook初始化和载入</p></li><li><p>之后会默认进入根目录，有docs, examples, notebooks等文件夹，进入notebooks文件夹：</p><ol><li><p>运行Compare All Models.ipynb</p></li><li><p>运行Benchmark.ipynb</p></li></ol></li></ol></li></ol></div><footer class="post-footer"><div class="post-tags"><a href="/tags/机器学习/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/spark/spark-schedule/" rel="next" title="Spark 作业调度"><i class="fa fa-chevron-left"></i> Spark 作业调度</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"> <a href="/machinelearning/classfication/" rel="prev" title="分类场景下的类别不平衡问题">分类场景下的类别不平衡问题<i class="fa fa-chevron-right"></i></a></div></div></footer></div></article></div></div><div class="comments" id="comments"></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap"> 文章目录</li><li class="sidebar-nav-overview" data-target="site-overview-wrap"> 站点概览</li></ul><section class="site-overview-wrap sidebar-panel"><div class="site-overview"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"> <a href="/"><img class="site-author-image" itemprop="image" src="/images/fox.png" alt="Mophei"></a><p class="site-author-name" itemprop="name">Mophei</p><p class="site-description motion-element" itemprop="description"></p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"> <a href="/archives/"><span class="site-state-item-count">30</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"> <a href="/categories/index.html"><span class="site-state-item-count">7</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"> <a href="/tags/index.html"><span class="site-state-item-count">8</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="https://github.com/mopheiok" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i> GitHub</a></span></div></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-无监督异常检测"><span class="nav-number">1.</span> <span class="nav-text">1. 无监督异常检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-模型检测效果"><span class="nav-number">2.</span> <span class="nav-text">2. 模型检测效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-模型运算开销"><span class="nav-number">3.</span> <span class="nav-text">3. 模型运算开销</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-总结"><span class="nav-number">4.</span> <span class="nav-text">4. 总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-复现实验步骤（可选）"><span class="nav-number">5.</span> <span class="nav-text">5. 复现实验步骤（可选）</span></a></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright">&copy; <span itemprop="copyrightYear">2019</span><span class="with-love" id="animate"><i class="fa fa-heart"></i></span> <span class="author" itemprop="copyrightHolder">Mophei</span></div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/reading_progress/reading_progress.js"></script><script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script><script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script><script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script><script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script><script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">var GUEST=["nick","mail","link"],guest="nick,mail,link";guest=guest.split(",").filter(function(e){return-1<GUEST.indexOf(e)}),new Valine({el:"#comments",verify:!1,notify:!1,appId:"oO4Jifnu4baeHvtzPGuJwHpq-gzGzoHsz",appKey:"WcXdDJOBanGaIQhH7yJ1kkLh",placeholder:"想要说点什么...\nCtrl+Enter发布",avatar:"mm",meta:guest,pageSize:"10",visitor:!0})</script><script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><script>!function(){var t=document.createElement("script"),e=window.location.protocol.split(":")[0];t.src="https"===e?"https://zz.bdstatic.com/linksubmit/push.js":"http://push.zhanzhang.baidu.com/push.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}()</script><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script><script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script><script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></body></html>
