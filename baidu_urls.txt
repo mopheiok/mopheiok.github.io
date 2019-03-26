@@ -2,7 +2,7 @@ https://mophei.coding.me/machinelearning/watermeloncamp/
 https://mophei.coding.me/Tools/github_hexo/
 https://mophei.coding.me/spark/distance_latitude_longitude/
 https://mophei.coding.me/machinelearning/similarity/
-https://mophei.coding.me/基础数学/arrangement_combination/
+https://mophei.coding.me/mathematicas/arrangement_combination/
 https://mophei.coding.me/machinelearning/ensemble_learning/
 https://mophei.coding.me/uncategorized/42/
 https://mophei.coding.me/spark/sql/
