@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://mophei.coding.me/machinelearning/gradient_descent/</loc>
+    <lastmod>2019-03-26T15:17:39.459Z</lastmod>
+  </url>  <url>
     <loc>https://mophei.coding.me/machinelearning/watermeloncamp/</loc>
     <lastmod>2019-03-25T17:03:54.133Z</lastmod>
   </url>  <url>
@@ -51,9 +54,6 @@
   </url>  <url>
     <loc>https://mophei.coding.me/Tools/idea-spark/</loc>
     <lastmod>2019-03-23T02:29:22.650Z</lastmod>
-  </url>  <url>
-    <loc>https://mophei.coding.me/machinelearning/gradient_descent/</loc>
-    <lastmod>2019-03-23T02:29:22.646Z</lastmod>
   </url>  <url>
     <loc>https://mophei.coding.me/tool/git/</loc>
     <lastmod>2019-03-23T02:29:22.641Z</lastmod>
