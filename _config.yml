@@ -64,6 +64,7 @@ category_map:
   算法: algorithm
   Data Science: datascience
   工具: tool
+  基础数学: mathematicas
 tag_map:
 
 # Date / Time format
