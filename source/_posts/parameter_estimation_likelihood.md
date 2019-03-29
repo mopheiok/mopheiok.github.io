@@ -11,15 +11,15 @@ description:
 ---
 首先来看下这些问题：
 
-> 机器学习中的有参建模，会面临参数估计的问题，最后一般都会变成一个目标函数的优化问题（可以带或者不带约束条件），那么这个目标函数都是怎么来的？比如，交叉熵损失函数怎么来的？在逻辑回归中，它的目标函数是怎么来的？
+> 机器学习中的有参建模，会面临参数估计的问题，最后一般都会变成一个目标函数的优化问题（可以带或者不带约束条件），那么这个目标函数都是怎么来的？比如，交叉熵损失函数怎么来的<!--什么是交叉熵函数？-->？在逻辑回归中，它的目标函数是怎么来的？
 
 在回答这个问题之前，我们先回顾下极大似然估计、极大后验估计、贝叶斯估计这三种估计方法，并进行梳理、对比和总结。
 
 ## 问题引出
 
-假设有一个机器学习问题，输入$x​$是一个向量，输出$p(x)​$为某一个事件的概率（比如，$x​$属于某个类别的概率）。已观测到的数据集$D=(x_1, x_2,...,x_N)​$，其中$x_1, x_2,...,x_N​$独立同分布。我们将输入$x​$所满足的概率分布建模为$p(D, \theta)​$，则对新输入的预测为$p(x|D,\theta)​$，其中$\theta​$是一个向量，表示带确定的所有模型参数。现在的问题就是，如何求解或估计出$\theta​$的值？
+假设有一个机器学习问题，输入$x$是一个向量，输出$p(x)$为某一个事件的概率（比如，$x$属于某个类别的概率）。已观测到的数据集$D=(x_1, x_2,...,x_N)$，其中$x_1, x_2,...,x_N$独立同分布。我们将输入$x$所满足的概率分布建模为$p(D, \theta)$，则对新输入的预测为$p(x|D,\theta)$，其中$\theta$是一个向量，表示待确定的所有模型参数。现在的问题就是，如何求解或估计出$\theta$的值？
 
-频率学派 $VS $ 贝叶斯学派
+### 频率学派 $VS $ 贝叶斯学派
 
 对$\theta$的本质的不同认识，将概率统计领域的学者分成了两大派别。
 
@@ -34,9 +34,9 @@ description:
 
 在对这三种参数估计方法进行正式讨论之前，我们先对一些基础知识予以简单说明：
 
-> **先验(Prior)：**$p(\theta)$指在简单数据集$D$之前，对参数$\theta$的认知
+> **先验(Prior)：**$p(\theta)​$指在见到数据集$D​$之前，对参数$\theta​$的认知
 >
-> **似然(Likelihood)：**$p(D|\theta)$指在给定参数$\theta$下，数据集$D$被观测到的概率
+> **似然(Likelihood)：**$\displaystyle{\mathcal{L}}(\theta|D)=p(D|\theta)​$指在给定参数$\theta​$下，数据集$D​$被观测到的概率
 >
 > **后验(Posterior)：**$p(\theta|D)$，在见到数据集$D$之后，对参数$\theta$的重新认知
 >
@@ -69,7 +69,7 @@ $$
 &=\underset{\theta}{\arg \max} \ \frac{p(D|\theta)p(\theta)}{p(D)}\\
 &=\underset{\theta}{\arg \max} \ p(D|\theta)p(\theta)\\
 &=\underset{\theta}{\arg \max}\log[p(D|\theta)p(\theta)]\\
-&=\underset{\theta}{\arg \min} \ -\log(D|\theta) -\log p(\theta)
+&=\underset{\theta}{\arg \min} \ -\log p(D|\theta) -\log p(\theta)
 \end{aligned}
 \end{equation}
 $$
@@ -85,13 +85,13 @@ $$
 $$
 \begin{equation}
 \begin{aligned}
-\hat{\theta}_{MAP}&=\underset{\theta}{\arg\max}-\log p(D|\theta) -\log p(\theta)\\
-&=\underset{\theta}{\arg\max}-\log p(D|\theta) +\lambda \left \| \theta \right \|_2^2 \\
-&=\hat{\theta}_MLE +\lambda\left \| \theta \right \|_2^2
+\hat{\theta}_{MAP}&=\underset{\theta}{\arg\min}-\log p(D|\theta) -\log p(\theta)\\
+&=\underset{\theta}{\arg\min}-\log p(D|\theta) +\lambda \left \| \theta \right \|_2^2 \\
+&=\hat{\theta}_{MLE} +\lambda\left \| \theta \right \|_2^2
 \end{aligned}
 \end{equation}
 $$
-其中，$\lambda$是一个与$\theta$无关的常数。
+其中，$\lambda​$是一个与$\theta​$无关的常数。
 
 
 
@@ -123,11 +123,12 @@ $$
 
 举个例子
 
-假设观测到数据集$D=(x_1, x_2, ...,x_N)​$，$x_i(i=1,2,...,N)​$服从高斯分布$N(\mu, \sigma^2)​$，其中方差$\sigma^2​$已知，假设$\mu​$的先验分布也是搞死分布，为$p(\mu) \sim N(\mu, \sigma^2)​$，求均值$\mu​$的MLE、MAP和BE估计。
+假设观测到数据集$D=(x_1, x_2, ...,x_N)$，$x_i(i=1,2,...,N)$服从高斯分布$N(\mu, \sigma^2)$，其中方差$\sigma^2$已知，假设$\mu$的先验分布也是高斯分布，为$p(\mu) \sim N(\mu_0, \sigma^2_0)$，求均值$\mu$的MLE、MAP和BE估计。
 $$
 \begin{equation}
 \begin{aligned}
-p(D|\mu)&=\prod_{i=1}^N\frac{1}{\sqrt{2\pi}\sigma}\exp(-\frac{(x_i-\mu)^2}{2\sigma^2})\\
+\mathcal L(\mu|D) &= p(D|\mu)\\
+&=\prod_{i=1}^N\frac{1}{\sqrt{2\pi}\sigma}\exp(-\frac{(x_i-\mu)^2}{2\sigma^2})\\
 &=C_1\exp[-\frac{1}{2\sigma^2} \sum_{i=1}^N(x_i-\mu)^2]\\
 &=C_2\exp[-\frac{1}{2\sigma^2}(N\mu^2 - 2\sum_{i=1}^N x_i \mu)]\\
 &=C_3 \exp(-\frac{1}{2\sigma^2}(\mu - \frac{1}{N} \sum_{i=1}^N x_i)^2)
@@ -139,14 +140,14 @@ $$
 \begin{equation}
 \begin{aligned}
 p(\mu|D)&=\frac{p(D|\mu)p(\mu)}{p(D)}\\
-&=C_4 \prod_{i=1}^N \exp(-\frac{(x_i-\mu)^2}{2\sigma^2}) \exp(-\frac{(\mu - \mu_0)^2}{2\sigma^2})\\
-&=C_5 \exp\{-\frac{1}{2}[(\frac{N}{\sigma^2}+\frac{1}{\sigma^2})\mu^2 -2(\frac{1}{\sigma^2} \sum_{i=1}{N}x_i + \frac{\mu_0}{\sigma^2})\mu]\}\\
+&=C_4 \prod_{i=1}^N \exp(-\frac{(x_i-\mu)^2}{2\sigma^2}) \exp(-\frac{(\mu - \mu_0)^2}{2\sigma^2_0})\\
+&=C_5 \exp\{-\frac{1}{2}[(\frac{N}{\sigma^2}+\frac{1}{\sigma^2_0})\mu^2 -2(\frac{1}{\sigma^2} \sum_{i=1}^{N}x_i + \frac{\mu_0}{\sigma^2_0})\mu]\}\\
 &=C_6 \exp[-\frac{(\mu-\mu_N)^2}{\sigma^2_N}]
 \end{aligned}
 \end{equation}
 $$
 
-其中，$C_1,C_2,...,C_6$均为常数，
+其中，$C_1,C_2,...,C_6​$均为常数，
 $$
 \begin{equation}
 \begin{aligned}
@@ -156,7 +157,7 @@ $$
 \end{aligned}
 \end{equation}
 $$
-求得$\mu​$的MLE、MAP和BE估计分别为，
+求得$\mu$的MLE、MAP和BE估计分别为，
 $$
 \begin{equation}
 \begin{aligned}
@@ -170,9 +171,9 @@ $$
 $$
 从以上三个表达式可以的出结论，
 
-- 当$N\rightarrow \infty​$时，$\hat{\mu}_{MAP} \rightarrow \hat{\mu}_{MLE}​$。此时，因为观测数据足够多，先验不起作用。
+- 当$N\rightarrow \infty$时，$\hat{\mu}\_{MAP} \rightarrow \hat{\mu}_{MLE}$。此时，因为观测数据足够多，先验不起作用。
 - 当$\sigma^2_0 \rightarrow 0$时，$\mu_N \rightarrow \mu$。此时，先验假设足够强，使高斯分布收敛到一个点上，观测数据不起作用。
-- 在$p(\mu|D)$为高斯分布，且采用平方误差时，$\hat{\mu}_{EE}=\hat{\mu}_{MAP}$。
+- 在$p(\mu|D)$为高斯分布，且采用平方误差时，$\hat{\mu}\_{EE}=\hat{\mu}_{MAP}$。
 
 ## 总结
 
@@ -186,7 +187,7 @@ $$
 
 还有就是，MLE无法从理论层面说明机器学习目标函数中正则项的来由，而MAP给出了理论解释。
 
-事实上，当初统计学家在回归问题中引入$L2$正则，只是出于防止矩阵病态造成不可求逆矩阵，后来才发现结果居然更好了。
+事实上，当初统计学家在回归问题中引入$L2​$正则，只是出于防止矩阵病态造成不可求逆矩阵，后来才发现结果居然更好了。
 
 **2）MAP的缺点是可能带来计算的困难**
 
@@ -194,7 +195,7 @@ $$
 
 正因为如此，贝叶斯学派的学者们提出了很多形式的概率分布，称之为共轭分布。
 
-共轭分布的作用是，让先验诚意似然之后，仍然跟先验属于同一种分布，这样就带来了计算上的方便。
+共轭分布的作用是，让先验乘以似然之后，仍然跟先验属于同一种分布，这样就带来了计算上的方便。
 
 但这一点也是频率学派所一直诟病的地方，你们贝叶斯学派选择先验没有任何科学依旧，只是为了方便计算啊。
 
@@ -224,4 +225,10 @@ $$
 
 
 PS：以上内容转自公众号：大数据与人工智能 [极大似然估计、极大后验估计和贝叶斯估计](https://mp.weixin.qq.com/s/TKPDVbJnPHKI3Yj8Eo027A)
+
+
+
+[1]. [Likelihood function](https://en.wikipedia.org/wiki/Likelihood_function)
+
+[2]. [似然函数](https://zh.wikipedia.org/wiki/%E4%BC%BC%E7%84%B6%E5%87%BD%E6%95%B0)
 
