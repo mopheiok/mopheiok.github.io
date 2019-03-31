@@ -1,5 +1,5 @@
 https://mophei.coding.me/machinelearning/parameter_estimation_likelihood/
-https://mophei.coding.me/machinelearning/watermeloncamp/
+https://mophei.coding.me/machinelearning/linear_model/
 https://mophei.coding.me/Tools/github_hexo/
 https://mophei.coding.me/spark/distance_latitude_longitude/
 https://mophei.coding.me/machinelearning/similarity/
