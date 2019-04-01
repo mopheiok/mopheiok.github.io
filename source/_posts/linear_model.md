@@ -1,9 +1,8 @@
-title: 02_线性模型
+title: 【西瓜书训练营】02_线性模型
 mathjax: true
 author: Mophei
 tags:
-
-  - 训练营
+  - 西瓜书
 categories:
   - 机器学习
 date: 2019-03-26 01:02:00
