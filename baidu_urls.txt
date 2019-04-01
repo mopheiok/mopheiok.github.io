@@ -1,3 +1,4 @@
+https://mophei.coding.me/machinelearning/decision_tree/
 https://mophei.coding.me/machinelearning/parameter_estimation_likelihood/
 https://mophei.coding.me/machinelearning/linear_model/
 https://mophei.coding.me/Tools/github_hexo/
@@ -17,4 +18,3 @@ https://mophei.coding.me/Tools/idea-spark/
 https://mophei.coding.me/machinelearning/naive-bayes/
 https://mophei.coding.me/machinelearning/roc/
 https://mophei.coding.me/machinelearning/cross-validation/
-https://mophei.coding.me/machinelearning/least-squares/

@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://mophei.coding.me/machinelearning/decision_tree/</loc>
+    
+    <lastmod>2019-04-01T14:06:11.270Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://mophei.coding.me/machinelearning/linear_model/</loc>
     
-    <lastmod>2019-03-31T10:32:03.103Z</lastmod>
+    <lastmod>2019-04-01T13:37:36.354Z</lastmod>
     
   </url>
   
