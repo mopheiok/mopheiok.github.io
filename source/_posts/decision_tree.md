@@ -63,7 +63,22 @@ Gini(D)&=\sum_{k=1}^{|y|} \sum_{k' \neq k} p_k p_{k'}\\
 \end{aligned}
 \end{equation}
 $$
-$Gini(D)$ 反映了从数据集$D$ 中随机抽取两个样本，其类别标记不一致的概率。$Gini(D)$ 越小，则数据集$D$ 的纯度越高。
+$Gini(D)$ 反映了从数据集$D$ 中随机抽取*两个样本，其类别标记不一致的概率*。<span style="color:red">**$Gini(D)$ 越小，则数据集$D​$ 的纯度越高。**</span>
+
+```python
+def calcGini(dataSet):
+  numEntries = len(dataSet)
+  labelCounts = {}
+  for featVec in dataSet:
+    currentLabel = featVec[-1]
+    if currentLabel not in labelCounts.keys(): labelCounts[currentLabel] = 0
+    labelCounts[currentLabel] += 1
+  gini = 1.0
+  for key in labelCounts:
+    prob = float(labelCounts[key])/numEntries
+    gini -= prob * prob
+  return gini
+```
 
 属性$a$ 的基尼指数定义为：
 $$
