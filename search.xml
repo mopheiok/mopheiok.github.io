@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[【西瓜书训练营】06_支撑向量机]]></title>
+    <url>%2Fmachinelearning%2Fsupport_vector_machine%2F</url>
+    <content type="text"><![CDATA[对SVM整体上的认识SVM有三宝：间隔、对偶、核技巧 SVM分类的： hard-margin svm soft-margin svm kernel svm svm几何上的原理 能够进行划分的超平面有无数个。然而在这个超平面簇中类似于紫色的那个超平面的泛化能力或者说鲁棒性比较差，比如有一个噪声圆点稍微偏过去一点，那么就会出现分类错误，所以我们需要找到最中间或者说到两边最近点的距离和最大的那个超平面作为分类超平面。 分类模型为$f(x)=sign (w^T x + b)$，其本质上是一个判别模型，与概率没有关系 硬间隔SVM硬间隔SVM又称为最大间隔分类器，则可以定义为 即这个分类器的数学表达是关于$w$ 和$b$ 的函数，满足于蓝色框的限制 那么如何定义margin呢？我们定义margin为样本点到超平面的距离集合中最小的距离 将margin的定义式代入最大间隔分类器的定义中得到 到此，我们得到了最大间隔分类器的优化问题（红色阴影部分），即得到目标函数。可以求得最优解$w^, b^$。 由此，得到超平面 w^* \cdot x+b^* =0以及分类模型 f(x)=sign(w^* \cdot x +b^*)]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>西瓜书</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[【西瓜书训练营】03_决策树]]></title>
     <url>%2Fmachinelearning%2Fdecision_tree%2F</url>
     <content type="text"><![CDATA[决策树的直观认知：一般的，一棵树包括根结点、内部结点和叶子结点。叶结点对应于决策树结果，其他每个结点则对应于一个属性测试；每个结点包含的样本集合根据属性测试的结果被划分到子结点中；根结点包含样本全集。 决策树的生成是一个递归过程。在一次迭代中，生成树核心规则为：从属性集合中选择最优划分属性，然后根据该属性的取值进行划分子集。 决策树的生成信息熵又称为熵(entropy)，在信息论与概率统计中，熵是表示随机变量不确定性的度量。可以用来度量该属性对分支结点不确定性的大小。样本集$D$ 的信息熵为： Ent(D) = -\sum_{k=1}^n p_k \log _2{p_k}其中，$n$表示样本集$D$ 的分类数，$p_k$ 为第$k$ 类样本所占的比例 信息增益属性$a$ 对样本集$D$ 的信息增益： Gain(D, a)=Ent(D)-\sum_{v=1}^V \frac{|D^v|}{|D|}Ent(D^v)其中，基于属性$a$ 的取值将样本集$D$ 划分为$V$个子集，$|D^v|$ 为第$v$ 个样本子集的元素个数，则$|D^v|/|D|$ 为样本子集的权重。 一般而言，信息增益越大，使用属性$a$ 进行划分获得的不确定性减小越大。ID3(Iterative Dichotomiser, 迭代二分器)决策树学习算法是以信息增益为准则来选择划分属性。 不足：信息增益准则对可取值数目较多的属性有所偏好 增益率定义： Gain\_ratio(D,a)=\frac{Gain(D,a)}{IV(a)}其中 IV(a)=-\sum_{v=1}^V \frac{|D^v|}{|D|} \log_2{\frac{|D^v|}{|D|}}称为属性$a$ 的“固有值”（intrinsic value）。属性$a$ 的可能取值数目越多（即$V$ 越大），$IV(a)$ 的值通常会越大。 不足：增益率准则对可取数目较少的属性有所偏好 在C4.5决策树算法中使用了一个启发式：先从候选划分属性中找出信息增益熵高于平均水平的属性，再从中选择增益率最高的 基尼指数数据集$D$ 的纯度可用基尼值来度量： \begin{equation} \begin{aligned} Gini(D)&=\sum_{k=1}^{|y|} \sum_{k' \neq k} p_k p_{k'}\\ &=1-\sum_{k=1}^{|y|}p_k^2 \end{aligned} \end{equation}$Gini(D)$ 反映了从数据集$D$ 中随机抽取两个样本，其类别标记不一致的概率。$Gini(D)$ 越小，则数据集$D​$ 的纯度越高。 123456789101112def calcGini(dataSet): numEntries = len(dataSet) labelCounts = &#123;&#125; for featVec in dataSet: currentLabel = featVec[-1] if currentLabel not in labelCounts.keys(): labelCounts[currentLabel] = 0 labelCounts[currentLabel] += 1 gini = 1.0 for key in labelCounts: prob = float(labelCounts[key])/numEntries gini -= prob * prob return gini 属性$a$ 的基尼指数定义为： Gnini\_index(D,a)=\sum_{v=1}^V \frac{|D^v|}{|D|}Gini(D^v)CART决策树算法使用基尼指数来选择划分属性 习题4.2 试析使用“最小训练误差”作为决策树划分选择准则的缺陷 机器学习过程中，我们希望得到泛化误差小的学习器，这样在新样本上能表现得很好。然而在训练集上做到最小化训练误差时，往往会有过拟合的风险。无论是采用信息增益、增益率还是基尼指数，都会使结点纯度越来越高，也就是最小化训练误差，所以会存在过拟合的风险。]]></content>
