@@ -1,4 +1,4 @@
-https://mophei.coding.me/machinelearning/optimization_KKT/
+https://mophei.coding.me/machinelearning/optimization_kkt/
 https://mophei.coding.me/machinelearning/optimization/
 https://mophei.coding.me/machinelearning/support_vector_machine/
 https://mophei.coding.me/machinelearning/decision_tree/
