@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://mophei.coding.me/machinelearning/optimization_kkt/</loc>
-    <lastmod>2019-04-20T08:17:54.797Z</lastmod>
-  </url>  <url>
     <loc>https://mophei.coding.me/machinelearning/support_vector_machine/</loc>
-    <lastmod>2019-04-20T07:57:17.231Z</lastmod>
+    <lastmod>2019-04-20T08:50:26.519Z</lastmod>
+  </url>  <url>
+    <loc>https://mophei.coding.me/machinelearning/optimization_kkt/</loc>
+    <lastmod>2019-04-20T08:43:43.092Z</lastmod>
   </url>  <url>
     <loc>https://mophei.coding.me/machinelearning/convex_optimization_machine_learning/</loc>
     <lastmod>2019-04-20T07:49:51.552Z</lastmod>
