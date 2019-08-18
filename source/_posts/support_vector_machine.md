@@ -48,7 +48,7 @@ svm几何上的原理
 
 ![2019-04-09_003412.png](https://upload-images.jianshu.io/upload_images/2268630-c52e4de6e1e32c4a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-到此，我们得到了最大间隔分类器的优化问题（红色阴影部分），即得到目标函数。可以求得最优解$w^*, b^*$。
+到此，我们得到了最大间隔分类器的优化问题（红色阴影部分），即得到目标函数。可以求得最优解$w^\*, b^\*$。
 
 由此，得到超平面
 $$
@@ -58,3 +58,8 @@ $$
 $$
 f(x)=sign(w^* \cdot x +b^*)
 $$
+
+---
+
+[用一张图理解SVM的脉络](https://mp.weixin.qq.com/s?__biz=MzU4MjQ3MDkwNA==&mid=2247483937&idx=1&sn=84a5acf12e96727b13fd7d456c414c12&chksm=fdb69fb6cac116a02dc68d948958ee731a4ae2b6c3d81196822b665224d9dab21d0f2fccb329&scene=21#wechat_redirect)
+
