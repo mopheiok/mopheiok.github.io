@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://mophei.coding.me/machinelearning/outlier_detection/</loc>
+    
+    <lastmod>2019-08-18T14:59:26.870Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://mophei.coding.me/machinelearning/support_vector_machine/</loc>
     
     <lastmod>2019-04-20T08:50:26.519Z</lastmod>
@@ -159,13 +166,6 @@
     <loc>https://mophei.coding.me/algorithm/quick_sort/</loc>
     
     <lastmod>2019-03-23T02:29:22.675Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://mophei.coding.me/machinelearning/outlier_detection/</loc>
-    
-    <lastmod>2019-03-23T02:29:22.670Z</lastmod>
     
   </url>
   
