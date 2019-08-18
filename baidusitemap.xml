@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://mophei.coding.me/machinelearning/classfication/</loc>
+    <lastmod>2019-08-18T15:58:02.451Z</lastmod>
+  </url>  <url>
     <loc>https://mophei.coding.me/machinelearning/outlier_detection/</loc>
     <lastmod>2019-08-18T14:59:26.870Z</lastmod>
   </url>  <url>
@@ -84,9 +87,6 @@
   </url>  <url>
     <loc>https://mophei.coding.me/machinelearning/cross-validation/</loc>
     <lastmod>2019-03-23T02:29:22.623Z</lastmod>
-  </url>  <url>
-    <loc>https://mophei.coding.me/machinelearning/classfication/</loc>
-    <lastmod>2019-03-23T02:29:22.617Z</lastmod>
   </url>  <url>
     <loc>https://mophei.coding.me/machinelearning/bagging_boosting/</loc>
     <lastmod>2019-03-23T02:29:22.611Z</lastmod>
