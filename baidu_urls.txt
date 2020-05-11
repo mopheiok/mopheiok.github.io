@@ -1,4 +1,4 @@
-https://mophei.coding.me/uncategorized/PySpark-on-Yarn/
+https://mophei.coding.me/spark/PySpark-on-Yarn/
 https://mophei.coding.me/machinelearning/convex_optimization_machine_learning/
 https://mophei.coding.me/machinelearning/optimization_kkt/
 https://mophei.coding.me/machinelearning/optimization/
