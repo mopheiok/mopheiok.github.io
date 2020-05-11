@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://mophei.coding.me/uncategorized/PySpark-on-Yarn/</loc>
+    
+    <lastmod>2020-05-11T15:52:17.900Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://mophei.coding.me/machinelearning/classfication/</loc>
     
     <lastmod>2019-08-18T15:58:02.451Z</lastmod>

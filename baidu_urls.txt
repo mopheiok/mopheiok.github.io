@@ -1,3 +1,4 @@
+https://mophei.coding.me/uncategorized/PySpark-on-Yarn/
 https://mophei.coding.me/machinelearning/convex_optimization_machine_learning/
 https://mophei.coding.me/machinelearning/optimization_kkt/
 https://mophei.coding.me/machinelearning/optimization/
@@ -17,4 +18,3 @@ https://mophei.coding.me/datascience/normal_distribution/
 https://mophei.coding.me/algorithm/quick_sort/
 https://mophei.coding.me/machinelearning/classfication/
 https://mophei.coding.me/machinelearning/outlier_detection/
-https://mophei.coding.me/spark/spark-schedule/
